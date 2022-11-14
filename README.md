@@ -327,9 +327,6 @@ Link to Sleuth & Zipkin examples:
 
 ![event-driven-microservices](event-driven-microservices.jpeg)
 
-- Kafka setup in docker-compose.yaml file
-- Can make use of Spring for Apache Kafka (make use of KafkaTemplate object)
-
 Event-driven architecture (EDA) is a software design pattern in which decoupled applications can asynchronously 
 publish and subscribe to events via an event broker/message broker.
 In an Event-Driven Architecture, applications communicate with each other by sending and/or receiving 
@@ -349,7 +346,6 @@ Link to Kafka examples:
 [Kafka Tutorial - Spring Boot Microservices (YouTube/AmigosCode)](https://www.youtube.com/watch?v=SqVfCyfCJqw)
 <br>
 [Event-Driven Microservices using Spring Boot and Kafka (javaguides)](https://www.javaguides.net/2022/07/event-driven-microservices-using-spring-boot-and-apache-kafka.html)
-<br>
 
 ## 2. Deploying Microservices
 
@@ -358,8 +354,8 @@ Link to Kafka examples:
 - Can reduce the size of docker image using layers
 - Can do without dockerfile using Jib
 - Once images are on dockerhub, use command docker compose
-- Must ocnfigure all the docker containers for each service/image in the Microservice application
-- Mongo, KeyCloak, Zookeper & Kafka, KeyCloak & MySQL, Zipkin, Eureka Server, all SB apps need docker-compose configs
+- Must configure all the docker containers for each service/image in the Microservice application
+- Mongo, KeyCloak, Zookeeper & Kafka, KeyCloak & MySQL, Zipkin, Eureka Server, all SB apps need docker-compose configs
 - application-docker.properties
 - need to renew client secret from KeyCloack everytime docker container restarted.
 
