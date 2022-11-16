@@ -1,8 +1,7 @@
 # spring-boot-microservices
 
-This project is a guide to learning Microservices, specifically, using Spring Boot, Docker and Kubernetes.
-It is split into 2 sections, Part A consists of content pertaining to Building Microservices,
-while Part B contains material associated with Deploying Microservices.
+This project is a guide to learning how to build, deploy and manage Microservices 
+using Spring Boot, Docker and Kubernetes.
 
 ## Table of Contents
 
@@ -45,7 +44,7 @@ while Part B contains material associated with Deploying Microservices.
 [9. Message Brokers/Queues](#9-message-brokers--queues)
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[9.1 Implementation (Kafka, RabbitMQ)](#91-implementation-kafka-rabbitmq)
-<br>
+
 [B. Deploying Microservices](#b-deploying-microservices)
 <br>
 [1. Packaging / Containerizing the Application](#1-packaging--containerizing-the-application)
@@ -67,9 +66,14 @@ while Part B contains material associated with Deploying Microservices.
 
 ## A. Building Microservices
 
+<ins>Summary
+
+In simple terms, a monolithic application is built as a single unified unit while a microservices 
+architecture is a collection of smaller, independently deployable services.
+
 ![monolithic-vs-microservice](monolothic-vs-microservice-apps.png)
 
-In simple terms, a monolithic application is built as a single unified unit while a microservices architecture is a collection of smaller, independently deployable services.
+<ins>Monolithic Architecture
 
 The monolithic architecture is considered to be a traditional way of building applications. 
 A monolithic application is built as a single and indivisible unit. Usually, such a solution comprises a 
@@ -86,10 +90,12 @@ So, they make changes in the whole stack at once.
 | Simple deployment | Inability to adapt to new technologies |
 | Uncomplicated testing and debugging | High dependence between functionalities |
 
+<ins>Microservices Architecture
+
 While a monolithic application is a single unified unit, a microservices architecture breaks it down 
 into a collection of smaller independent units. 
 These units carry out every application process as a separate service. 
-So all the services have their own log ic and the database as well as perform the specific functions.
+So all the services have their own logic and the database as well as perform the specific functions.
 
 Within a microservices architecture, the entire functionality is split up into independently deployable 
 modules which communicate with each other through defined methods called APIs.
@@ -103,52 +109,63 @@ Each service covers its own scope and can be updated, deployed, and scaled indep
 | Scalable & reliable | Complex testing |
 
 
-SO WHICH SOFTWARE ARCHITECTURE SUITS YOUR SOLUTION AND YOUR BUSINESS BEST?
+<ins>Deciding between a Monolithic or Microservices Architecture for you project
 
-Choosing a monolithic architecture:
+For choosing a monolithic architecture:
 
 - Small team.
 - A simple application.
 - No microservices expertise.
 - Quick launch.
 
-Choosing a microservices architecture:
+For choosing a microservices architecture:
 
 - Microservices expertise.
 - A complex and scalable application. 
 - Enough engineering skills.
 
+<ins>Spring Cloud
 
 Spring Cloud provides many design patterns to help build Microservice applications. 
-Here is a typical Microservice application developed using Spring based modules:
+Here is a typical Microservice application developed using Spring based projects:
 
 ![spring-boot-microservices](microservices.jpg)
 
-Introduction to this topic: [Introduction to Microservices, Docker, and Kubernetes (YouTube/JamesQuigley)](https://www.youtube.com/watch?v=1xo-0gCVhTU)
+<ins>Supporting Material
+
+[Introduction to Microservices, Docker, and Kubernetes (YouTube/JamesQuigley)](https://www.youtube.com/watch?v=1xo-0gCVhTU)
 <br>
-Link to: [Microservices vs Monolith: which architecture is the best choice for your business? (n-ix.com/RomanaGnatyk)](https://www.n-ix.com/microservices-vs-monolith-which-architecture-best-choice-your-business/)
+[Microservices vs Monolith: which architecture is the best choice for your business? (n-ix.com/RomanaGnatyk)](https://www.n-ix.com/microservices-vs-monolith-which-architecture-best-choice-your-business/)
 <br>
-Link to: [the Basic Microservices Architecture with Spring Cloud (devo.to/BrunoDrugowick)](https://dev.to/brunodrugowick/project-overview-the-basic-microservices-architecture-with-spring-cloud-2e8e)
+[the Basic Microservices Architecture with Spring Cloud (devo.to/BrunoDrugowick)](https://dev.to/brunodrugowick/project-overview-the-basic-microservices-architecture-with-spring-cloud-2e8e)
 <br>
 
 ## 1. Building the Services
 
-The Microservices Example developed in this project comes from: [Spring Boot Microservices Project Example - Part 1 | Building Services (YouTube/ProgrammingTechie)](https://www.youtube.com/watch?v=lh1oQHXVSc0&list=PLSVW22jAG8pBnhAdq9S8BpLnZ0_jVBj0c)
-<br>
+To build the microservices, we must first separate the components that would be present in a 
+Monolithic application into smaller, independent applications. 
 
-Spring Boot Microservices Project Example Architecture:
-![microservices-app-architecture](microservices-app-architecture.png)
-
-To build the microservices, we must first separate the components that would be present in a Monolithic application
-into smaller, independent applications. 
-
-For example, instead of building a "Store App" with Model, Repository, Service and Controller layers for Product, Order and Inventory, we extract these into their own individual applications.
+For example, instead of building a "Store App" with a model, repository, service and so on for 
+Product, Order and Inventory... we extract these into their own individual applications.
 Here, we will end up with product-service, order-service and inventory-service applications.
 
-We must not forget to carry out appropriate tests for each microservice, this is typically carried out in the form of integration tests.
-For testing, we can make use of Testcontainers which allows us to run JUnit tests in lightweight throwaway instances of databases that can be run in Docker containers!
+The Microservice example application developed in this repository is based on the architecture below
+and comes from [Spring Boot Microservices Full Course (YouTube/ProgrammingTechie)](https://www.youtube.com/playlist?list=PLSVW22jAG8pBnhAdq9S8BpLnZ0_jVBj0c):
 
-Furthermore, it will be more functional to adopt a Maven multi-module project to manage the microservices/applications easier.
+![microservices-app-architecture](microservices-app-architecture.png)
+
+We must not forget to carry out appropriate tests for each microservice, this is typically carried out in 
+the form of integration tests.
+For testing, we can make use of Testcontainers which allows us to run JUnit tests in lightweight throwaway 
+instances of databases that can be run in Docker containers!
+
+Furthermore, it will be more functional to adopt a Maven multi-module project to manage the 
+microservices/applications more easily.
+
+<ins>Supporting Material
+
+[Spring Boot Microservices Level 1: Communication and Discovery (YouTube/JavaBrains)](https://www.youtube.com/playlist?list=PLqq-6Pq4lTTZSKAFG6aCDVDP86Qx4lNas)
+<br>
 
 ## 2. Communication between Microservices
 
@@ -158,6 +175,11 @@ If you are working with a Spring Boot project which involves multiple microservi
 You might have felt the need to communicate from one microservice to another. 
 Depending upon business use-cases, this communication can be of synchronous or asynchronous type.
 
+<ins>Supporting Material
+
+Link to: [Spring Boot Microservices Level 1: Communication and Discovery (YouTube/JavaBrains)](https://www.youtube.com/playlist?list=PLqq-6Pq4lTTZSKAFG6aCDVDP86Qx4lNas)
+<br>
+
 ## 2.1 Synchronous Communication
 
 In the case of Synchronous Communication, the client sends a request and waits for a response from the service. 
@@ -166,35 +188,39 @@ its task when it receives the HTTP server response.
 
 An example of where this might be used is in an e-commerce application, if a customer searches for a particular 
 product to purchase then that product’s availability needs to be validated in the inventory by making a request 
-to product availability service. 
-Because customer should know about the current availability of the product to place the order.
-In this case, you can use synchronous communication to get the product’s real-time availability 
+to the product availability service. 
+Why? Because the customer must know about the current availability of the product before placing the order.
+In this case, you use synchronous communication to get the product’s real-time availability 
 in inventory and price information.
 
 For Synchronous Communication: Can make use of REST Template, OpenFeign or WebClient.
 
 ## 2.2 Asynchronous Communication
 
-In the case of Asynchronous Communication, The client sends a request and does not wait for a response from the service. 
-The client will continue executing its task - It does not wait for the response from the service.
+In the case of Asynchronous Communication, the client sends a request and does not wait for a response from the service. 
+The client will continue executing their task(s) - It does not wait for the response from the service.
 
-An example of where this might be used is in the banking domain, loan request should be processed and needs approval at multiple levels. 
-So in this case, when a user raises a request for the loan then the loan request service will provide some reference number immediately. 
-Once all the approvals are done, will persist the loan request details in the database. 
+An example of where this might be used is in the banking domain, a loan request should be processed and needs approval at multiple levels. 
+So in this case, when a user raises a request for the loan, the loan request service will provide a reference number immediately. 
+Once all the approvals are done, the system will persist the loan request details into the database. 
 So in this scenario, we can use asynchronous communication.
 
 For Asynchronous Communication: Can make use of Message Brokers / Message Queues such as RabbitMQ and Apache Kafka.
 
 ## 2.3 Implementation (WebClient, OpenFeign)
 
+<ins>WebClient
+
 WebClient is an interface representing the main entry point for performing web requests.
-It was created as part of the Spring Web Reactive module and will be replacing the classic RestTemplate in these scenarios.
+It was created as part of the Spring Web Reactive module and has replaced the classic RestTemplate in these scenarios.
 
 Link to WebClient examples: 
 <br>
 [Calling REST from Java with Spring WebClient (YouTube/vaadinofficial)](https://www.youtube.com/watch?v=-U_dDUAw_OM)
 <br>
 [Using WebClient to make API calls (YouTube/JavaBrains)](https://www.youtube.com/watch?v=F3uJyeAyv5g)
+
+<ins>OpenFeign
 
 OpenFeign, originally known as Feign and sponsored by Netflix, is designed to allow developers to use a declarative 
 way to build HTTP clients by means of creating annotated interfaces without writing any boilerplate code.
@@ -203,48 +229,58 @@ Link to OpenFeign examples:
 <br>
 [Feign Client Using Spring Boot (YouTube/PlayJava)](https://www.youtube.com/watch?v=tlshVRtbS_c)
 
-Implementation of Asynchronous Communication is covered in Section X. Message Brokers/Queues.
+<ins>Asynchronous Communication
+
+Implementation of Asynchronous Communication is covered in [Section 9. Message Brokers/Queues](#9-message-brokers--queues).
 
 ## 3. Service Discovery
 
-Microservices are dynamic in nature. This means multiple instances of a single Microservice 
-will be co-existing. 
-Most probably your instances will either have a different IP address or a different port or both. 
-And the number of instances will be dynamic too. This brings up loads of questions —
+Microservices are dynamic in nature. This means that multiple instances of a single Microservice 
+can/will be co-existing. 
+It is likely your instances will either have a different IP address, a different port or even both. 
+Furthermore, the number of instances will be dynamic too. 
+
+This brings up the questions:
 - How do I know the location of any Microservice instance?
 - How can I keep a track of all the instances?
 - How do I select a Microservice instance?
 - What happens if the Microservice instance goes down?
 
 When building REST APIs, We are assuming the URL (e.g. http://localhost:8080/product/**) to be constant 
-but in reality, it is dynamic. All parts of it — be it hostname or the port .
+but in reality, it is dynamic. All parts of it — be it the hostname or the port.
 
-Service Discovery comes to the rescue. This provides a mechanism that keeps track of all the services and their instances. 
-All the Microservices register to it and keep updating their network information regularly.
+Service Discovery solves this problem. It provides a mechanism that keeps track of all the services and their instances. 
+All the Microservices register to the Service Discovery and update their network information regularly.
+
+<ins>Client-side Service Discovery
 
 ![eureka-service-discovery](eureka-service-discovery.png)
 
-The problem can be resolved by creating a Discovery Server where our microservices can register themselves. 
 The discovery server will keep a track of all the instances, their hosts, ports, and health status. 
 If a service needs to communicate with another service, it needs to get the instance info from this 
 discovery server. However, Load balancing is a must as the discovery server does not handle it automatically.
+
+Client-side service discovery allows services to find and communicate with each other without hard-coding
+the hostname and port. The only ‘fixed point' in such an architecture is the service registry, with
+which each service has to register.
 
 Above describes Client-side Service Discovery but, you can also have Server-side Service Discovery.
 Server-side is similar to the option above but the load balancing is not happening at the client side. 
 We have a dedicated proxy server that takes care of this.
 
-Link to more info:
+<ins>Supporting Material
+
+[Spring Boot Microservices Level 1: Communication and Discovery (YouTube/JavaBrains)](https://www.youtube.com/playlist?list=PLqq-6Pq4lTTZSKAFG6aCDVDP86Qx4lNas)
 <br>
 [Spring Boot Microservices — Developing Service Discovery (Medium/LalVerma)](https://lalverma.medium.com/spring-boot-microservices-implementing-service-discovery-cfc98e49b74f)
 
 ## 3.1 Implementation (Eureka)
 
-Can make use of client-side service discovery via “Spring Cloud Netflix Eureka”. We need to ensure the correct dependencies and configurations
-are entered on both the Server and Client(s). Load balancing is a must as the discovery server does not handle it automatically.
+<ins>Eureka
 
-Client-side service discovery allows services to find and communicate with each other without hard-coding 
-the hostname and port. The only ‘fixed point' in such an architecture is the service registry, with 
-which each service has to register.
+We make use of client-side service discovery via “Spring Cloud Netflix Eureka”. 
+We must ensure the correct dependencies and configurations are entered on both the Server and Client(s) properties file. 
+Load balancing is a must as the discovery server does not handle it automatically, so this must also be configured.
 
 Link to Eureka examples:
 <br>
@@ -252,20 +288,23 @@ Link to Eureka examples:
 
 ## 4. API Gateway
 
-![api-gateway-2](api-gateway-2.png)
 ![api-gateway](api-gateway.png)
 
-An API gateway is the single entry point for all clients. The API gateway handles requests in one of two ways.
-Some requests are simply proxied/routed to the appropriate service.
-It handles other requests by fanning out to multiple services.
+An API gateway is the single entry point for all clients. The API gateway handles requests in one of two ways,
+some requests are simply proxied/routed to the appropriate service while others
+are spread to multiple services.
 
 Rather than provide a one-size-fits-all style API, the API gateway can expose a different API for each client.
 For example, the Netflix API gateway runs client-specific adapter code that provides each client with an API
 that’s best suited to its requirements.
 
-The API gateway might also implement security, e.g. verify that the client is authorized to perform the request
+![api-gateway-2](api-gateway-2.png)
+
+The API gateway might also implement security, e.g. verify that the client is authorized to perform the request.
 
 ## 4.1 Implementation (Spring Cloud Gateway)
+
+<ins>Spring Cloud Gateway
 
 Spring Cloud Gateway provides a library for building API gateways on top of Spring and Java. 
 It provides a flexible way of routing requests based on a number of criteria, as well as focuses on 
@@ -285,14 +324,16 @@ There are also multiple OAuth2 providers (Google, Github, etc.) you can integrat
 
 ## 5.1 Implementation (Keycloak)
 
+<ins>Keycloak
+
 Keycloak is an open-source identity and access management solution which makes it easy to secure modern applications  with less code.
-Keycloak provides both SAML and OpenID protocol solutions which are industry standard so definitely
+Keycloak is based on standard protocols and provides support for OpenID Connect, OAuth 2.0, and SAML.
 Building an application that is integrated with Keycloak will provide you a more secure and stable solution.
 
-We are going to enable and configure OAuth 2.0 support on the API gateway via Keycloak on a Docker container. 
-Must ensure configurations such as Issuer URI and SecurityConfig.class is added.
+You can enable and configure OAuth 2.0 support on the API gateway via Keycloak on a Docker container. 
+But, we must ensure that configurations such as Issuer URI and SecurityConfig.class are added.
 When using POSTMAN for communicating with the REST API's, we must select OAuth2.0
-in Authorization Type and complete the configuration options as per our KeyCloak settings.
+in "Authorization Type" and complete the configuration options as per our KeyCloak settings.
 This will allow us to use JWT's issued by KeyCloak.
 
 Link to Keycloak examples:
@@ -304,36 +345,43 @@ Link to Keycloak examples:
 
 ## 6. Circuit Breakers
 
-![circuit-breaker](circuit-breaker.png)
-
-In microservices, an application or service makes a lot of remote calls to applications running in different services, 
+In Microservices, an application or service can make many remote calls to applications running in different services, 
 usually on different machines across a network. If there are many callers to an unresponsive service, you 
 can run out of critical resources leading to cascading failures across multiple systems.
 
-Consider an example that multiple users log in to a banking application and the account service is down. 
-The authentication service will wait on the account service and now a lot of user threads are waiting for 
+Consider an example that multiple users log-in to a banking application and the account service is down. 
+The authentication service will wait on the account service and now many user threads are waiting for 
 a response thereby exhausting the CPU on the authentication service as well as the account service. 
 As a result, the system cannot serve any of the users.
 
-Circuit breakers are a design pattern to create resilient microservices by limiting the impact of service 
+Circuit Breakers are a design pattern to create resilient microservices by limiting the impact of service 
 failures and latencies. The major aim of the Circuit Breaker pattern is to prevent any cascading failure in 
 the system. In a microservice system, failing fast is critical.
 
+![circuit-breaker](circuit-breaker.png)
+
 In the circuit breaker, there are 3 states Closed, Open, and Half-Open. These different states are triggered
-based on the configuration we apply. There are 2 types of circuit breaker patterns, Count-based and Time-based.
+based on the configurations we apply. There are 2 types of circuit breaker patterns, Count-based and Time-based.
 A count-based circuit breaker switches state from closed to open if the last N number of calls failed or 
 were slow. A time-based circuit breaker switches to an open state if the responses in the last N seconds 
 failed or were slow.
 
 If there are failures in the Microservice ecosystem, then you need to fail fast by opening the circuit. 
-This ensures that no additional calls are made to the failing service so that we return the fall back logic 
-we have implemented (in our service) immediately.
+This ensures that no additional calls are made to the failing service and that we can return the fall back logic
+(we have implemented in our service) to the client immediately.
+
+<ins>Supporting Material
+
+[Spring Boot Microservices Level 2: Fault Tolerance and Resilience (YouTube/JavaBrains)](https://www.youtube.com/playlist?list=PLqq-6Pq4lTTbXZY_elyGv7IkKrfkSrX5e)
+<br>
 
 ## 6.1. Implementation (Resilience4J, Hystrix)
 
-Spring Cloud Circuit Breaker supports many different circuit breaker implementations including, 
+Spring Cloud Circuit Breaker supports many circuit breaker implementations including, 
 Resilience4J, Hystrix, Sentinal, and Spring Retry. 
 In this guide we will be using the modern alternative to Hystrix, Resilience4J.
+
+<ins>Resilience4J
 
 Resilience4j is a lightweight fault tolerance library inspired by Netflix Hystrix, but designed for 
 functional programming. 
@@ -347,21 +395,123 @@ Link to Resilience4J examples:
 
 ## 7. Centralize Configuration
 
+Configuration is essential for any production application as it is required for establishing connections,
+storing credentials, configuring Spring Cloud properties and so on.
+We must not write any configuration logic in the business logic code, but instead, 
+separate them and add the config into files such as application.properties.
+This is done so any property values can be easily set, located or changed.
+Previously, XML was the favoured filetype for storing application properties, however formats such as .properties, 
+.yaml and .json are now preferred as they are significantly less verbose.
+
+<ins>Externalise Configuration
+
+![config-build](config-build.png)
+
+From a deployment perspective, it is not necessary to go through the process of rebuilding/testing the application
+when changes are made to the config file(s). It is much more efficient to simply separate and externalize
+configuration. 
+
+Spring Boot by default uses application.properties as its config file however, application.yml supports nesting through
+indentations and reduces duplication when it comes to key name paths. For example:
+
+application.properties
+```properties
+app.name=spring-boot-app
+app.description=description=basic-rest-api
+```
+application.yml
+```yaml
+app:
+  name: spring-boot-app
+  description: basic-rest-api
+```
+
+<ins>Spring Profiles
+
+In Spring, we can specify which environment (DEV, PROD etc.) we want to run the application based on 
+the config file and app names.
+Naming the config files based on environment follows the format:
+```
+application-<environmentName>.extn
+```
+
+For example: 
+
+application.yml:
+```yaml
+app.name: default-app
+spring.profiles.active: test
+```
+
+application-test.yml
+```yaml
+app.name: test-app
+```
+
+Spring will always run the default profile in the background, however now it will also run the "test" profile.
+
+Spring allows us to have more than 1 active profile, so in most cases this will be the default profile and the 
+environment profile we want to run.
+The approach to take here is, for all the common configuration properties that does NOT change between environments,
+leave in the "default" profiles config file. 
+Only put the settings that change between environments in their respective config files.
+This method forces us to specify the active profile in the applications.yml file.
+
+
+To have environment based config while still having everything packaged within the .jar file:
+```
+java -jar <jar-name>.jar --spring.profiles.active=test
+```
+
+This means we can have multiple application-environment.yml config files saved in the project directory, packaged into 
+the .jar file, without stating the active Spring profile, and we can specify which environment to run the application in.
+
+<ins>Spring Cloud Config
+
 ![centralized-config](centralized-config.webp)
 
-In micro-service world, managing configurations of each service separately is a tedious and time-consuming 
-task. In other words, if there are many number of modules, and managing properties for each module with the 
-traditional approach is very difficult.
+In the Microservices world, managing configurations of each service separately is a tedious and time-consuming 
+task. Imagine each service has their own config file, and there are also multiple instances of each service,
+managing properties for each module with the traditional approach is very difficult.
+A Central configuration server provides configurations (properties) to each microservice connected and handles this
+problem more efficiently.
+
+We cannot have consistent and reliable config if each microservice is holding onto their own config files.
+We should extract this to a "Configuration Service" microservice!
+
+All we need is a repository that holds configuration files, no application build is required if any changes are made
+to these files. If using a Git Repo, we can commit any changes to the config files and push them to the remote repository.
+
+The goal of centralizing configuration should be to:
+- Externalize configuration
+- Allow environment specificity (DEV, PROD, TEST)
+- Maintain consistency (configuration between services)
+- Track version history
+- Adopt real-time management (make changes to configuration while services are still running!)
+
+<ins>Supporting Material
+
+[Spring Boot Microservices Level 3: Microservice configuration (YouTube/JavaBrains)](https://www.youtube.com/playlist?list=PLqq-6Pq4lTTaoaVoQVfRJPqvNTCjcTvJB)
+<br>
 
 ## 7.1 Implementation (Spring Cloud Config)
 
-Central configuration server provides configurations (properties) to each microservice connected. 
-As mentioned in the above diagram, Spring Cloud Config Server can be used as a central cloud config server 
-by integrating to several environments.
+<ins>Spring Cloud Config Server
+
+Spring Cloud Config Server can be used as a central cloud config server by integrating to several environments.
+
+We must use the Config Server dependency, @EnableConfigServer annotation, configure git URI in application.properties file,
+specify the server port (8888 typically for cloud config). We must also setup the Config clients dependencies, spring cloud
+config URI properties, and any microservice specific properties must be stored in microservices-name.yml where name is 
+specified in spring.app.name key.
 
 Link to Spring Cloud Config examples:
 <br>
-[Microservices using SpringBoot | Full Example (YouTube/DailyCodeBuffer)](https://www.youtube.com/watch?v=BnknNTN8icw&t=3750s)
+[Set up spring cloud config server from scratch (YouTube/JavaBrains)](https://www.youtube.com/watch?v=gb1i4WyWNK4&list=PLqq-6Pq4lTTaoaVoQVfRJPqvNTCjcTvJB&index=11)
+<br>
+[Setting up spring cloud config client (YouTube/JavaBrains)](https://www.youtube.com/watch?v=E2HkL766VHs&list=PLqq-6Pq4lTTaoaVoQVfRJPqvNTCjcTvJB&index=12)
+<br>
+[Dynamic config with spring Boot (YouTube/JavaBrains)](https://www.youtube.com/watch?v=yNnLICy2zk4&list=PLqq-6Pq4lTTaoaVoQVfRJPqvNTCjcTvJB&index=13)
 <br>
 
 ## 8. Distributed Tracing
@@ -374,8 +524,12 @@ Every request will have a Trace ID, timestamp, and other useful metadata.
 
 ## 8.1 Implementation (Spring Cloud Sleuth & Zipkin)
 
+<ins>Spring Cloud Sleuth
+
 Spring Cloud Sleuth allows you to aggregate and track log entries as requests move through a 
 distributed software system by adding trace and Span ID’s on the appropriate HTTP request headers.
+
+<ins>Zipkin
 
 Zipkin is an open source project that provides mechanisms for sending, receiving, storing, and 
 visualizing traces. This allows us to correlate activity between servers and get a much clearer picture of 
@@ -397,11 +551,13 @@ events or messages.
 
 ## 9.1 Implementation (Kafka, RabbitMQ)
 
+<ins>Kafka
+
 In the above architecture, OrderService, StockService, and EmailService microservices are independent of each other. 
 OrderService is a Producer (and Topic) application that sends an event to the Message Broker. 
 StockService and EmailService are Consumers who will consume the events from the Message Broker.
 
-In this tutorial, we will also see how multiple consumers will subscribe to a single Kafka topic to 
+In the links below, you can see how multiple consumers can subscribe to a single Kafka topic to 
 consume the events/messages.
 
 Link to Kafka examples:
@@ -410,30 +566,65 @@ Link to Kafka examples:
 <br>
 [Event-Driven Microservices using Spring Boot and Kafka (javaguides)](https://www.javaguides.net/2022/07/event-driven-microservices-using-spring-boot-and-apache-kafka.html)
 
+
 ## B. Deploying Microservices
+
+Summary of Steps:
+
+<ins>Without any configuration files:
+
+Ensure you are in project directory for the Packaging and Docker steps.
+
+1. Develop Spring Boot Application
+2. Package Application - in project directory, mvn clean package
+3. Build Docker Image - in project directory, docker build -t arsy786/fcms:latest . 
+4. Push Docker Image to Remote Repository - via Docker Hub UI or docker push <your_username>/my-private-repo
+5. Run Docker Image in Container - docker run -p8080:8080 arsy786/fcms:latest
+6. Create Kubernetes Cluster - minikub start
+7. Create k8s pod - kubectl create deployment fcms-4 --image=arsy786/fcms
+8. View k8s deployments - 
+9. view k8s pods - 
+10. view pod info - 
+11. k8s dashboard - minikub dashboard
+
+Link to: [SpringBoot to Kubernetes in 15 minutes (YouTube/TEKE)](https://www.youtube.com/watch?v=aH1IwAPHe1w)
+<br>
+
+
+<ins>With configuration files (docker-compose.yaml, deployment.yaml):
+
+1. Develop Spring Boot Application
+2. Package Application - mvn clean package
+3. Build Docker Image in project directory - Jib or Dockerfile (Ensure Docker is running and you are logged in)
+4. Can run in container -
+5. Kubernetes deployment file
+
 
 ## 1. Packaging / Containerizing the Application
 
-One question that a lot of beginning programmers have is: "Now that I’ve created my application in the IDE, how do I get it to work from the command line outside of the IDE." Similarly, someone might ask, "How do I distribute this application to other users without having to give them the whole IDE as well?"
+One question that a lot of beginning programmers have is: "Now that I’ve created my application in the IDE, 
+how do I get it to work from the command line outside of the IDE." Similarly, someone might ask, 
+"How do I distribute this application to other users without having to give them the whole IDE as well?"
 
-We will package the application in the form of an executable JAR file.
+We can package the application in the form of an executable JAR file.
 
-A JAR file is an archive file that can contain multiple files and folders. JAR files are similar to zip files, but JAR files can have additional attributes that are useful for distributing Java applications. These attributes include digitally signing JAR files, additional compression, multiplatform compatibility, etc.
+A JAR file is an archive file that can contain multiple files and folders. 
+JAR files are similar to zip files, but JAR files can have additional attributes that are useful for 
+distributing Java applications. These attributes include digitally signing JAR files, additional compression, 
+multiplatform compatibility, etc.
 
-Firstly, we need to package our Java application into a jar file via:
-
+Firstly, we need to package our Java application into a jar file using the command:
 ``` shell
 $> mvn clean package
 ```
 
-This will create an executable .jar file of our application in the target folder.
-
+This will create an executable .jar file of our application in the "target" folder.
 We can even start the Spring Boot application with the command:
 ``` shell
 $> java -jar target/<jar-file-name>.jar
 ```
 
-Now that we have packaged the application, we can think about containerizing it.
+Now that we have packaged the application, we can think about containerizing it with Docker.
 
 ## 1.1 Docker
 
@@ -443,35 +634,43 @@ Installing Docker: [How to Install Docker on Mac (2022) (YouTube/AmitThinks)](ht
 <br>
 
 ![docker-flow](docker-flow.png)
+![docker-vs-VM](docker-vs-VM.png)
 
-Docker is a (Open Source) platform for building, running and shipping applications. 
-Developers can easily build and deploy applications running in containers.
-Containers are running instances of our application.
-Greatest thing about Docker is the local development is the same across any environment. 
-Docker is used alot for CI/CD workflows and DevOps space.
 
-Containers can be spun up from that single Docker image.
-Analogy: Docker Image = Class, Container = Instance of that class (Object).
-This deployment is made easier with tools such as Jenkins
-Jenkins is a platform for creating a Continuous Integration/Continuous Delivery (CI/CD) environment.
+Docker is an open platform for building, running and shipping applications. 
+It allows developers to easily build and deploy applications in containers.
 
-Docker image is a file used to execute code in a Docker Container.
-Set of instruction to build a Docker Container.
-Contains the application code libraries, tools and everything needed to run your application.
-Can think of the Docker image as the blueprint.
-And from the Blueprint, we can run multiple instances of the containers.
+Some benefits of Docker include:
+- A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application.
+- As there is no OS involved, an application that operates in a container will behave the same in any container environment.
+- When compared with VM's, they take up less space, require less time to deploy and can handle more applications.
+- It can run on physical hardware, virtual hardware and on cloud.
+- Docker is used a lot for CI/CD workflows in the DevOps space. It works well as part of its pipelines along with tools such as Jenkins. These tools can save the new version as a Docker image, every time our source code is updated, just tag it with a version number and push to Docker Hub, then deploy it to production.
 
-A container is an isolated environment for running an application.
-It contains everything your application needs.
-It is the smallest deployable unit for Docker.
+What is an Image?
 
+- Docker image is a file used to execute code in a Docker Container.
+- Docker images act as a set of instructions to build a Docker container, like a template.
+- Contains the application code libraries, tools and everything needed to run your application.
+- From this template, we can run multiple instances of containers.
+
+What is a Container?
+
+- A container is an isolated environment for running an application.
+- They contain everything your application needs 
+- They are running instances of our application.
+- It is also the smallest deployable unit for Docker.
+- Multiple Containers can be spun up from a single Docker image.
+- To compare it to OOP, you can think of a Docker Image as a Class, and a Container as an instance of that Class (Object).
+- This deployment is made easier with tools such as Jenkins, which is a platform for creating a Continuous Integration/Continuous Delivery (CI/CD) environment.
 
 ## 1.1.1 Dockerfile
 
-Application converted to Docker images via dockerfile.
+Your packaged application code is converted to a Docker Image via a Dockerfile.
 
 To dockerize an application, we first create a file named Dockerfile with the following content:
 
+Dockerfile:
 ``` dockerfile
 FROM openjdk:11-jdk
 ARG JAR_FILE=target/*.jar
@@ -479,33 +678,65 @@ COPY ${JAR_FILE} /app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 ```
 
-This file contains the following information:
-
-- FROM: As the base for our image, we'll take the Java-enabled Alpine Linux created in the previous section.
-- ARG: Defines the parameter name and defines its default value.
-- COPY: We let Docker copy our jar file into the image.
-- ENTRYPOINT: This will be the executable to start when the container is booting. We must define them as JSON-Array because we'll use an ENTRYPOINT in combination with a CMD for some application arguments.
-
-To create an image from our Dockerfile, we have to run ‘docker build' like before:
-
-``` shell
-$> docker build --tag=message-server:latest .
+another Dockerfile:
+``` dockerfile
+FROM openjdk:8
+EXPOSE 8080
+ADD target/springboot-k8s-demo.jar springboot-k8s-demo.jar
+ENTRYPOINT ["java","-jar","/springboot-k8s-demo.jar"]
 ```
 
-Finally, we're able to run the container from our image:
+This files contain the following information:
 
+- FROM: specifies the Parent Image from which you are building (the base image).
+- ARG: Defines the parameter name and defines its default value.
+- COPY:  copies files from a local source location to a destination in the Docker container.
+- ADD: used to copy files/directories into a Docker image.
+- EXPOSE: tells Docker that a container listens for traffic on the specified port.
+- ENTRYPOINT: used to set executables that will always run when the container is initiated.
+
+To build an image from our Dockerfile, we have to run ‘docker build' in the command line. 
+
+Ensure Docker is running, you are logged in AND you are in the project directory:
+
+format: docker build tag <repository-name>:<tag-version> <directory>
+``` shell
+$> docker build -t message-server:latest .
+```
+
+We can check if the image is present in our docker local repository:
+``` shell
+$> docker images
+```
+
+Finally, we're able to run a container from our image by providing the image name and tag:
 ``` shell
 $> docker run -p8887:8888 message-server:latest
 ```
 
-This will start our application in Docker, and we can access it from the host machine at 
-localhost:8887/messages. 
-Here it's important to define the port mapping, which maps a port on the host (8887) to the port 
-inside Docker (8888). 
+This will start our application in Docker, and we can access it from the host machine at
+localhost:8887/messages.
+Here it's important to define the port mapping, which maps a port on the host (8887) to the port
+inside Docker (8888).
 This is the port we defined in the properties of the Spring Boot application.
 
-NOTE: Can reduce the size of docker image using layers, for example:
+We can view running containers and all containers by:
+``` shell
+$> docker ps
+$> docker ps -a
+```
 
+Now that the Docker image has been created and is running in a container, 
+we can now deploy it on a Kubernetes cluster.
+
+More docker commands available at: [Docker CLI Cheat Sheet (PDF)](docker_cheatsheet.pdf)
+
+We can reduce the size of a docker image by splitting the application into layers.
+This is done by modifying the Dockerfile to run a command that extracts and copies these application layers.
+With this configuration, when we change our source code, we'll only rebuild the application layer.
+The rest will remain cached.
+
+Dockerfile.layered:
 ``` dockerfile
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR extracted
@@ -522,18 +753,44 @@ EXPOSE 8080
 ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
 ```
 
+As we have kept the original "Dockerfile" file from previous, instead of overwriting its contents
+we can create an image from a new file "Dockerfile.layered".
+When building this new image however,
+we must specify the filename in the command line so Docker does not by default automatically search for and build the "Dockerfile" file instead.
+
+``` shell
+docker build -t arsy786/fcms-layered -f Dockerfile.layered .
+```
+
+We can see the significant difference in size between the two images:
+
+![docker-image-size-comparison](docker-image-size-comparison.png)
+
 ## 1.1.2 Docker Compose
 
-Docker commands and Dockerfiles are particularly suitable for creating individual containers. However, if we want to operate on a network of isolated applications, the container management quickly becomes cluttered.
+Docker commands and Dockerfiles are particularly suitable for creating individual containers. 
+However, if we want to operate on a network of isolated applications, the container management quickly 
+becomes cluttered.
 
-To solve this, Docker provides a tool named Docker Compose. This tool comes with its own build-file in YAML format, and is better suited for managing multiple containers.
+To solve this, Docker provides a tool named Docker Compose. This tool comes with its own build-file in 
+YAML format, and is better suited for managing multiple containers.
 
-- Must configure all the docker containers for each service/image in the Microservice application
-- Mongo, KeyCloak, Zookeeper & Kafka, KeyCloak & MySQL, Zipkin, Eureka Server, all SB apps need docker-compose configs
+Within the docker-compose.yaml file, we must configure all the docker containers for each service, image and db 
+in the Microservice application. For example, Mongo, KeyCloak, Zookeeper & Kafka, KeyCloak & MySQL, Zipkin, 
+Eureka Server, all SB apps need docker-compose configs. 
+
+We must also configure an application.properties for the Docker environment.
+Similar to a DEV/PROD profile, to enable environment-specific configuration properties we need to add new application.properties files.
+- application-dev.properties
+- application-prod.properties
+- application-local.properties
+- application-test.properties
 - application-docker.properties
 
-an example of two applications running in different Docker containers.
-We can combine the configuration for both services in one file called docker-compose.yml:
+NOTE: Can make use of Spring Cloud Config Server instead of trying to set up lots of properties files for each service.
+
+For an example of two applications running in different Docker containers,
+we can combine the configuration for both services in one file called docker-compose.yaml:
 
 ``` yaml
 version: '2'
@@ -563,7 +820,7 @@ networks:
         driver: bridge
 ```
 
-Before we continue, we'll check our build-file for syntax-errors:
+Before we continue, you can check the build-file for syntax-errors:
 
 ``` shell
 $> docker-compose config
@@ -579,48 +836,50 @@ This will start up the message-server and product-server in one go.
 
 ## 1.1.3 Docker Hub
 
-Docker Hub is a cloud-based repository in which Docker users and partners create, test, store and distribute container images. Through Docker Hub, a user can access public, open source image repositories, as well as use a space to create their own private repositories, automated build functions, webhooks and work groups.
+Docker Hub is a cloud-based repository in which Docker users and partners create, test, 
+store and distribute container images. Through Docker Hub, a user can access public, 
+open source image repositories, as well as use a space to create their own private 
+repositories, automated build functions, webhooks and work groups.
 
-You can pull and push Docker containers to Docker Hub, all you need is a Docker account.
+You can pull and push Docker images to Docker Hub, all you need is a Docker account.
 
-Pull and run a container image from Docker Hub:
+<ins>Pull and run a container image from Docker Hub:
 
-to pull the image from Docker Hub, Run: 
+to pull the image from Docker Hub: 
 ``` shell
 $> docker pull hello-world
 ```
 
-to run the image locally, Run:
+to run the image locally:
 ``` shell
 $> docker run hello-world
 ```
 
-Build and push a container image to Docker Hub from your computer:
+<ins>Build and push a container image to Docker Hub from your computer:
 
-Start by creating a Dockerfile to specify your application as shown below:
+Start by creating a Dockerfile to specify your application as shown previously:
 
-to build your Docker image, Run:
+to build your Docker image:
 ``` shell
 $> docker build -t <your_username>/my-private-repo .
 ```
 
-to test your Docker image locally, Run:
+to test your Docker image locally:
 ``` shell
 $> docker run <your_username>/my-private-repo
 ```
 
-to push your Docker image to Docker Hub. You should see output similar to, Run:
+to push your Docker image to Docker Hub:
 ``` shell
 $> docker push <your_username>/my-private-repo
 ```
 
-NOTE: Ensure you are logged into Docker by running the command docker login.
+NOTE: Ensure Docker is running on your machine and that you are logged in by running the command docker login.
 
 ## 1.2 Jib
 
 Jib is an open-source Java tool maintained by Google for building Docker images of Java applications.
 It simplifies containerization since with it, we don't need to write a dockerfile.
-
 And actually, we don't even have to have docker installed to create and publish the docker images
 ourselves.
 
@@ -640,6 +899,8 @@ NOTE: Configuration for Jib is carried in pom.xml where aside from adding the pl
 <BR>
 NOTE: You must provide your Docker credentials in settings.xml file in Maven folder.
 <BR>
+NOTE: To use Jib must run the command: mvn compile jib:build 
+<BR>
 NOTE: Posts image to DockerHub automatically.
 
 ## 2. Managing the Application
@@ -648,23 +909,33 @@ NOTE: Posts image to DockerHub automatically.
 
 Installing Kubernetes: [How to Install Kubernetes on Mac (YouTube/ResearchRocks)](https://www.youtube.com/watch?v=gFI8PI-gMqQ)
 <br>
-
-What is Kubernetes? [Kubernetes in 5 mins YouTube/VMwareCloudNativeApps](https://www.youtube.com/watch?v=PH-2FfFD2PU)
+What is Kubernetes? [Kubernetes in 5 mins (YouTube/VMwareCloudNativeApps)](https://www.youtube.com/watch?v=PH-2FfFD2PU)
+<br>
+Link to: [Kubernetes 101: Pods, Nodes, Containers, and Clusters (medium/DanielSanche)](https://medium.com/google-cloud/kubernetes-101-pods-nodes-containers-and-clusters-c1509e409e16)
 <br>
 
-Kubernetes originated from Google.
+<ins>What is Kubernetes?
+
 Kubernetes (also known as k8s or “kube”) is an open source container orchestration platform that 
 automates many of the manual processes involved in deploying, managing, and scaling 
 containerized applications.
 
-![k8s-cluster](k8s-cluster.png)
+![components-of-kubernetes](components-of-kubernetes.png)
 
-A Cluster is a set of nodes
-a Node can be a VM or physical machine.
+<ins>What is a Kubernetes Cluster?
 
-In the kubernetes cluster there is a master node, and worker nodes.
-Master node is the brains and worker nodes do the work
-They communicate to eachother via the kubelet
+When you deploy Kubernetes, you get a cluster.
+
+A Kubernetes cluster consists of a set of worker machines, called nodes, that run 
+containerized applications. Every cluster has at least one worker node.
+
+The worker node(s) host the Pods that are the components of the application workload. 
+The control plane manages the worker nodes and the Pods in the cluster. 
+In production environments, the control plane usually runs across multiple computers and 
+a cluster usually runs multiple nodes, providing fault-tolerance and high availability.
+
+
+<ins>What is a Pod?
 
 ![k8s-pod](k8s-pod.png)
 
@@ -679,7 +950,21 @@ Shares network and Volumes.
 NEVER create PODs on its own, use Controllers instead!
 
 
+<ins>What is a Volume?
 
+<ins>What is a Deployment?
 
-How to use Kubernetes?
+<ins>How to Implement Kubernetes!
+
+Link to: [Run & Deploy Spring Boot Application in K8s Cluster using yaml configuration (medium/JavaTechie)](https://medium.com/@javatechie/kubernetes-tutorial-run-deploy-spring-boot-application-in-k8s-cluster-using-yaml-configuration-3b079154d232)
+<br>
+
+Now that the Docker image is created, we can now deploy it on the Kubernetes cluster.
+Next steps to deploy this springboot-k8s-example docker image in to k8s cluster first we need to create deployment object .
+
+We’re going to define both a Deployment and a Service for our application using a config file called spring-k8s-minikube-deployment.yaml:
+
+Now we can deploy it all:
+
+And now, you can recheck the Kubernetes Dashboard to see that your cluster is up and running as expected.
 
