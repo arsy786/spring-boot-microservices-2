@@ -71,7 +71,7 @@ using Spring Boot, Docker and Kubernetes.
 In simple terms, a monolithic application is built as a single unified unit while a microservices 
 architecture is a collection of smaller, independently deployable services.
 
-![monolithic-vs-microservice](monolothic-vs-microservice-apps.png)
+![monolithic-vs-microservice](images/monolothic-vs-microservice-apps.png)
 
 <ins>Monolithic Architecture
 
@@ -95,7 +95,7 @@ So, they make changes in the whole stack at once.
 While a monolithic application is a single unified unit, a microservices architecture breaks it down 
 into a collection of smaller independent units. 
 These units carry out every application process as a separate service. 
-So all the services have their own logic and the database as well as perform the specific functions.
+So all the services have their own logic and database, as well as perform their specific functions.
 
 Within a microservices architecture, the entire functionality is split up into independently deployable 
 modules which communicate with each other through defined methods called APIs.
@@ -109,7 +109,7 @@ Each service covers its own scope and can be updated, deployed, and scaled indep
 | Scalable & reliable | Complex testing |
 
 
-<ins>Deciding between a Monolithic or Microservices Architecture for you project
+<ins>Deciding between a Monolithic or Microservices Architecture for your project
 
 For choosing a monolithic architecture:
 
@@ -129,7 +129,7 @@ For choosing a microservices architecture:
 Spring Cloud provides many design patterns to help build Microservice applications. 
 Here is a typical Microservice application developed using Spring based projects:
 
-![spring-boot-microservices](microservices.jpg)
+![spring-boot-microservices](images/microservices.jpg)
 
 <ins>Supporting Material
 
@@ -152,7 +152,7 @@ Here, we will end up with product-service, order-service and inventory-service a
 The Microservice example application developed in this repository is based on the architecture below
 and comes from [Spring Boot Microservices Full Course (YouTube/ProgrammingTechie)](https://www.youtube.com/playlist?list=PLSVW22jAG8pBnhAdq9S8BpLnZ0_jVBj0c):
 
-![microservices-app-architecture](microservices-app-architecture.png)
+![microservices-app-architecture](images/microservices-app-architecture.png)
 
 We must not forget to carry out appropriate tests for each microservice, this is typically carried out in 
 the form of integration tests.
@@ -169,7 +169,7 @@ microservices/applications more easily.
 
 ## 2. Communication between Microservices
 
-![interservice-communication](interservice-comms.png)
+![interservice-communication](images/interservice-comms.png)
 
 If you are working with a Spring Boot project which involves multiple microservices, 
 You might have felt the need to communicate from one microservice to another. 
@@ -187,7 +187,7 @@ The important point here is that the protocol (HTTP/HTTPS) is synchronous and th
 its task when it receives the HTTP server response.
 
 An example of where this might be used is in an e-commerce application, if a customer searches for a particular 
-product to purchase then that product’s availability needs to be validated in the inventory by making a request 
+product to purchase, then that product’s availability needs to be validated in the inventory by making a request 
 to the product availability service. 
 Why? Because the customer must know about the current availability of the product before placing the order.
 In this case, you use synchronous communication to get the product’s real-time availability 
@@ -198,7 +198,7 @@ For Synchronous Communication: Can make use of REST Template, OpenFeign or WebCl
 ## 2.2 Asynchronous Communication
 
 In the case of Asynchronous Communication, the client sends a request and does not wait for a response from the service. 
-The client will continue executing their task(s) - It does not wait for the response from the service.
+The client will continue executing its task - It does not wait for the response from the service.
 
 An example of where this might be used is in the banking domain, a loan request should be processed and needs approval at multiple levels. 
 So in this case, when a user raises a request for the loan, the loan request service will provide a reference number immediately. 
@@ -254,7 +254,7 @@ All the Microservices register to the Service Discovery and update their network
 
 <ins>Client-side Service Discovery
 
-![eureka-service-discovery](eureka-service-discovery.png)
+![eureka-service-discovery](images/eureka-service-discovery.png)
 
 The discovery server will keep a track of all the instances, their hosts, ports, and health status. 
 If a service needs to communicate with another service, it needs to get the instance info from this 
@@ -288,7 +288,7 @@ Link to Eureka examples:
 
 ## 4. API Gateway
 
-![api-gateway](api-gateway.png)
+![api-gateway](images/api-gateway.png)
 
 An API gateway is the single entry point for all clients. The API gateway handles requests in one of two ways,
 some requests are simply proxied/routed to the appropriate service while others
@@ -298,7 +298,7 @@ Rather than provide a one-size-fits-all style API, the API gateway can expose a 
 For example, the Netflix API gateway runs client-specific adapter code that provides each client with an API
 that’s best suited to its requirements.
 
-![api-gateway-2](api-gateway-2.png)
+![api-gateway-2](images/api-gateway-2.png)
 
 The API gateway might also implement security, e.g. verify that the client is authorized to perform the request.
 
@@ -330,7 +330,7 @@ Keycloak is an open-source identity and access management solution which makes i
 Keycloak is based on standard protocols and provides support for OpenID Connect, OAuth 2.0, and SAML.
 Building an application that is integrated with Keycloak will provide you a more secure and stable solution.
 
-You can enable and configure OAuth 2.0 support on the API gateway via Keycloak on a Docker container. 
+You can enable and configure OAuth 2.0 support on the API gateway via Keycloak running in a Docker container. 
 But, we must ensure that configurations such as Issuer URI and SecurityConfig.class are added.
 When using POSTMAN for communicating with the REST API's, we must select OAuth2.0
 in "Authorization Type" and complete the configuration options as per our KeyCloak settings.
@@ -351,17 +351,17 @@ can run out of critical resources leading to cascading failures across multiple 
 
 Consider an example that multiple users log-in to a banking application and the account service is down. 
 The authentication service will wait on the account service and now many user threads are waiting for 
-a response thereby exhausting the CPU on the authentication service as well as the account service. 
+a response, thereby exhausting the CPU on the authentication service as well as the account service. 
 As a result, the system cannot serve any of the users.
 
 Circuit Breakers are a design pattern to create resilient microservices by limiting the impact of service 
 failures and latencies. The major aim of the Circuit Breaker pattern is to prevent any cascading failure in 
 the system. In a microservice system, failing fast is critical.
 
-![circuit-breaker](circuit-breaker.png)
+![circuit-breaker](images/circuit-breaker.png)
 
-In the circuit breaker, there are 3 states Closed, Open, and Half-Open. These different states are triggered
-based on the configurations we apply. There are 2 types of circuit breaker patterns, Count-based and Time-based.
+In the Circuit Breaker, there are 3 states: Closed, Open, and Half-Open. These different states are triggered
+based on the configurations we have set. There are 2 types of circuit breaker patterns, Count-based and Time-based.
 A count-based circuit breaker switches state from closed to open if the last N number of calls failed or 
 were slow. A time-based circuit breaker switches to an open state if the responses in the last N seconds 
 failed or were slow.
@@ -383,9 +383,9 @@ In this guide we will be using the modern alternative to Hystrix, Resilience4J.
 
 <ins>Resilience4J
 
-Resilience4j is a lightweight fault tolerance library inspired by Netflix Hystrix, but designed for 
+Resilience4J is a lightweight fault tolerance library inspired by Netflix Hystrix, but designed for 
 functional programming. 
-Resilience4j provides higher-order functions (decorators) to enhance any functional interface, 
+Resilience4J provides higher-order functions (decorators) to enhance any functional interface, 
 lambda expression or method reference with a Circuit Breaker, Rate Limiter, Retry or Bulkhead.
 
 Link to Resilience4J examples:
@@ -397,34 +397,24 @@ Link to Resilience4J examples:
 
 Configuration is essential for any production application as it is required for establishing connections,
 storing credentials, configuring Spring Cloud properties and so on.
+
 We must not write any configuration logic in the business logic code, but instead, 
 separate them and add the config into files such as application.properties.
 This is done so any property values can be easily set, located or changed.
+
 Previously, XML was the favoured filetype for storing application properties, however formats such as .properties, 
 .yaml and .json are now preferred as they are significantly less verbose.
 
 <ins>Externalise Configuration
 
-![config-build](config-build.png)
+![config-build](images/config-build.png)
 
 From a deployment perspective, it is not necessary to go through the process of rebuilding/testing the application
 when changes are made to the config file(s). It is much more efficient to simply separate and externalize
 configuration. 
 
 Spring Boot by default uses application.properties as its config file however, application.yml supports nesting through
-indentations and reduces duplication when it comes to key name paths. For example:
-
-application.properties
-```properties
-app.name=spring-boot-app
-app.description=description=basic-rest-api
-```
-application.yml
-```yaml
-app:
-  name: spring-boot-app
-  description: basic-rest-api
-```
+indentations and reduces duplication when it comes to key name paths. 
 
 <ins>Spring Profiles
 
@@ -434,29 +424,6 @@ Naming the config files based on environment follows the format:
 ```
 application-<environmentName>.extn
 ```
-
-For example: 
-
-application.yml:
-```yaml
-app.name: default-app
-spring.profiles.active: test
-```
-
-application-test.yml
-```yaml
-app.name: test-app
-```
-
-Spring will always run the default profile in the background, however now it will also run the "test" profile.
-
-Spring allows us to have more than 1 active profile, so in most cases this will be the default profile and the 
-environment profile we want to run.
-The approach to take here is, for all the common configuration properties that does NOT change between environments,
-leave in the "default" profiles config file. 
-Only put the settings that change between environments in their respective config files.
-This method forces us to specify the active profile in the applications.yml file.
-
 
 To have environment based config while still having everything packaged within the .jar file:
 ```
@@ -468,7 +435,7 @@ the .jar file, without stating the active Spring profile, and we can specify whi
 
 <ins>Spring Cloud Config
 
-![centralized-config](centralized-config.webp)
+![centralized-config](images/centralized-config.webp)
 
 In the Microservices world, managing configurations of each service separately is a tedious and time-consuming 
 task. Imagine each service has their own config file, and there are also multiple instances of each service,
@@ -476,13 +443,12 @@ managing properties for each module with the traditional approach is very diffic
 A Central configuration server provides configurations (properties) to each microservice connected and handles this
 problem more efficiently.
 
-We cannot have consistent and reliable config if each microservice is holding onto their own config files.
-We should extract this to a "Configuration Service" microservice!
+What is required is a repository that holds the configuration files and can be connected to the Spring Cloud Config 
+Server. We can use Git for this.
+In doing this, no application re-build is required if any changes are made to any of these files. 
+When using a Git Repo, we can commit any changes to the config files and push them to the remote repository directly.
 
-All we need is a repository that holds configuration files, no application build is required if any changes are made
-to these files. If using a Git Repo, we can commit any changes to the config files and push them to the remote repository.
-
-The goal of centralizing configuration should be to:
+The goal of centralizing configuration is to:
 - Externalize configuration
 - Allow environment specificity (DEV, PROD, TEST)
 - Maintain consistency (configuration between services)
@@ -498,12 +464,14 @@ The goal of centralizing configuration should be to:
 
 <ins>Spring Cloud Config Server
 
-Spring Cloud Config Server can be used as a central cloud config server by integrating to several environments.
-
-We must use the Config Server dependency, @EnableConfigServer annotation, configure git URI in application.properties file,
-specify the server port (8888 typically for cloud config). We must also setup the Config clients dependencies, spring cloud
-config URI properties, and any microservice specific properties must be stored in microservices-name.yml where name is 
-specified in spring.app.name key.
+We need to:
+- Add Spring Cloud Config Server dependency
+- Add @EnableConfigServer annotation
+- Configure git URI in application.properties file 
+- Specify the server.port=8888 (typical for cloud config) 
+- Add the Config Clients dependencies
+- Spring Cloud Config URI properties 
+- Add any microservice specific properties in microservices-name.yml where the name is specified in spring.app.name key.
 
 Link to Spring Cloud Config examples:
 <br>
@@ -516,7 +484,7 @@ Link to Spring Cloud Config examples:
 
 ## 8. Distributed Tracing
 
-![distributed-tracing](distributed-tracing.png)
+![distributed-tracing](images/distributed-tracing.png)
 
 Distributed Tracing is the process of tracing every single request from the point of origin up to 
 all the services it touches by analyzing the data. 
@@ -542,7 +510,7 @@ Link to Sleuth & Zipkin examples:
 
 ## 9. Message Brokers / Queues
 
-![event-driven-microservices](event-driven-microservices.jpeg)
+![event-driven-microservices](images/event-driven-microservices.jpeg)
 
 Event-driven architecture (EDA) is a software design pattern in which decoupled applications can asynchronously 
 publish and subscribe to events via an event broker/message broker.
@@ -554,7 +522,7 @@ events or messages.
 <ins>Kafka
 
 In the above architecture, OrderService, StockService, and EmailService microservices are independent of each other. 
-OrderService is a Producer (and Topic) application that sends an event to the Message Broker. 
+OrderService is a Producer application that sends an event to the Message Broker. 
 StockService and EmailService are Consumers who will consume the events from the Message Broker.
 
 In the links below, you can see how multiple consumers can subscribe to a single Kafka topic to 
@@ -562,10 +530,9 @@ consume the events/messages.
 
 Link to Kafka examples:
 <br>
-[Kafka Tutorial - Spring Boot Microservices (YouTube/AmigosCode)](https://www.youtube.com/watch?v=SqVfCyfCJqw)
-<br>
 [Event-Driven Microservices using Spring Boot and Kafka (javaguides)](https://www.javaguides.net/2022/07/event-driven-microservices-using-spring-boot-and-apache-kafka.html)
-
+<br>
+[Kafka Tutorial - Spring Boot Microservices (YouTube/AmigosCode)](https://www.youtube.com/watch?v=SqVfCyfCJqw)
 
 ## B. Deploying Microservices
 
@@ -633,8 +600,8 @@ Now that we have packaged the application, we can think about containerizing it 
 Installing Docker: [How to Install Docker on Mac (2022) (YouTube/AmitThinks)](https://www.youtube.com/watch?v=SGmFGYCuJK4)
 <br>
 
-![docker-flow](docker-flow.png)
-![docker-vs-VM](docker-vs-VM.png)
+![docker-flow](images/docker-flow.png)
+![docker-vs-VM](images/docker-vs-VM.png)
 
 
 Docker is an open platform for building, running and shipping applications. 
@@ -764,7 +731,7 @@ docker build -t arsy786/fcms-layered -f Dockerfile.layered .
 
 We can see the significant difference in size between the two images:
 
-![docker-image-size-comparison](docker-image-size-comparison.png)
+![docker-image-size-comparison](images/docker-image-size-comparison.png)
 
 ## 1.1.2 Docker Compose
 
@@ -884,9 +851,9 @@ And actually, we don't even have to have docker installed to create and publish 
 ourselves.
 
 Docker build flow:
-![docker_build_flow](docker_build_flow.png)
+![docker_build_flow](images/docker_build_flow.png)
 Jib build flow:
-![jib_build_flow](jib_build_flow.png)
+![jib_build_flow](images/jib_build_flow.png)
 
 Jib organizes your application into distinct layers; dependencies, resources, and classes;
 and utilizes Docker image layer caching to keep builds fast by only rebuilding changes.
@@ -920,7 +887,7 @@ Kubernetes (also known as k8s or “kube”) is an open source container orchest
 automates many of the manual processes involved in deploying, managing, and scaling 
 containerized applications.
 
-![components-of-kubernetes](components-of-kubernetes.png)
+![components-of-kubernetes](images/components-of-kubernetes.png)
 
 <ins>What is a Kubernetes Cluster?
 
@@ -937,7 +904,7 @@ a cluster usually runs multiple nodes, providing fault-tolerance and high availa
 
 <ins>What is a Pod?
 
-![k8s-pod](k8s-pod.png)
+![k8s-pod](images/k8s-pod.png)
 
 A Pod is the smallest deployable unit (and not containers).
 Within a pod you will always have one main container, your application.
