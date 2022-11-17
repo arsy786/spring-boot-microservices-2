@@ -536,36 +536,25 @@ Link to Kafka examples:
 
 ## B. Deploying Microservices
 
-Summary of Steps:
+<ins>Summary of Steps:
 
-<ins>Without any configuration files:
-
-Ensure you are in project directory for the Packaging and Docker steps.
+Ensure you are in the project directory for the Packaging and Docker steps, and that Docker is running and you are signed-in.
 
 1. Develop Spring Boot Application
-2. Package Application - in project directory, mvn clean package
-3. Build Docker Image - in project directory, docker build -t arsy786/fcms:latest . 
-4. Push Docker Image to Remote Repository - via Docker Hub UI or docker push <your_username>/my-private-repo
-5. Run Docker Image in Container - docker run -p8080:8080 arsy786/fcms:latest
-6. Create Kubernetes Cluster - minikub start
-7. Create k8s pod - kubectl create deployment fcms-4 --image=arsy786/fcms
-8. View k8s deployments - 
-9. view k8s pods - 
-10. view pod info - 
-11. k8s dashboard - minikub dashboard
+2. Package Application (mvn clean package)
+3. Build Docker Image (Dockerfile, docker-compose.yaml, Jib)
+4. Run Docker Image in Container (for testing, not necessary with k8s deployment)
+5. Push Docker Image to Docker Hub and move to Remote Repository (docker push)
+6. Start Kubernetes (minikube start)
+7. Create Kubernetes Deployment (deployment.yaml)
+8. Create Kubernetes Service (service.yaml)
+9. Run Deployment and Service (kubectl apply)
+10. View k8s Dashboard (minikube dashboard)
 
-Link to: [SpringBoot to Kubernetes in 15 minutes (YouTube/TEKE)](https://www.youtube.com/watch?v=aH1IwAPHe1w)
+[SpringBoot to Kubernetes in 15 minutes (YouTube/TEKE)](https://www.youtube.com/watch?v=aH1IwAPHe1w)
 <br>
-
-
-<ins>With configuration files (docker-compose.yaml, deployment.yaml):
-
-1. Develop Spring Boot Application
-2. Package Application - mvn clean package
-3. Build Docker Image in project directory - Jib or Dockerfile (Ensure Docker is running and you are logged in)
-4. Can run in container -
-5. Kubernetes deployment file
-
+[Deploy Springboot Microservices to Kubernetes Cluster (YouTube/DailyCodeBuffer)](https://www.youtube.com/watch?v=VAmntTPebKE&t=408s)
+<br>
 
 ## 1. Packaging / Containerizing the Application
 
@@ -585,7 +574,7 @@ Firstly, we need to package our Java application into a jar file using the comma
 $> mvn clean package
 ```
 
-This will create an executable .jar file of our application in the "target" folder.
+This will create an executable .jar file in the "target" folder.
 We can even start the Spring Boot application with the command:
 ``` shell
 $> java -jar target/<jar-file-name>.jar
@@ -595,46 +584,49 @@ Now that we have packaged the application, we can think about containerizing it 
 
 ## 1.1 Docker
 
-[Docker CLI Cheat Sheet (PDF)](docker_cheatsheet.pdf)
+Docker Commands: [Docker CLI Cheat Sheet (PDF)](docker_cheatsheet.pdf)
 <br>
 Installing Docker: [How to Install Docker on Mac (2022) (YouTube/AmitThinks)](https://www.youtube.com/watch?v=SGmFGYCuJK4)
 <br>
 
-![docker-flow](images/docker-flow.png)
-![docker-vs-VM](images/docker-vs-VM.png)
-
-
 Docker is an open platform for building, running and shipping applications. 
 It allows developers to easily build and deploy applications in containers.
 
-Some benefits of Docker include:
+![docker-vs-VM](images/docker-vs-VM.png)
+
+<ins>Benefits of Docker include:
 - A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application.
 - As there is no OS involved, an application that operates in a container will behave the same in any container environment.
 - When compared with VM's, they take up less space, require less time to deploy and can handle more applications.
 - It can run on physical hardware, virtual hardware and on cloud.
-- Docker is used a lot for CI/CD workflows in the DevOps space. It works well as part of its pipelines along with tools such as Jenkins. These tools can save the new version as a Docker image, every time our source code is updated, just tag it with a version number and push to Docker Hub, then deploy it to production.
+- Docker is used a lot for CI/CD workflows in the DevOps space. 
+It works well as part of its pipelines along with tools such as Jenkins. 
+These tools can save the new version as a Docker image, every time our source code is updated, 
+just tag it with an updated version number and push to Docker Hub, then deploy it to production automatically.
 
-What is an Image?
+![docker-flow](images/docker-flow.png)
+
+<ins>What is an Image?
 
 - Docker image is a file used to execute code in a Docker Container.
 - Docker images act as a set of instructions to build a Docker container, like a template.
 - Contains the application code libraries, tools and everything needed to run your application.
-- From this template, we can run multiple instances of containers.
+- From this template, we can run multiple instances of the image(s) in containers.
 
-What is a Container?
+<ins>What is a Container?
 
 - A container is an isolated environment for running an application.
 - They contain everything your application needs 
 - They are running instances of our application.
 - It is also the smallest deployable unit for Docker.
-- Multiple Containers can be spun up from a single Docker image.
+- Multiple containers can be spun up from a single Docker image.
 - To compare it to OOP, you can think of a Docker Image as a Class, and a Container as an instance of that Class (Object).
 - This deployment is made easier with tools such as Jenkins, which is a platform for creating a Continuous Integration/Continuous Delivery (CI/CD) environment.
 
 ## 1.1.1 Dockerfile
 
 Your packaged application code is converted to a Docker Image via a Dockerfile.
-
+A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image.
 To dockerize an application, we first create a file named Dockerfile with the following content:
 
 Dockerfile:
@@ -645,7 +637,7 @@ COPY ${JAR_FILE} /app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 ```
 
-another Dockerfile:
+another example Dockerfile:
 ``` dockerfile
 FROM openjdk:8
 EXPOSE 8080
@@ -653,7 +645,7 @@ ADD target/springboot-k8s-demo.jar springboot-k8s-demo.jar
 ENTRYPOINT ["java","-jar","/springboot-k8s-demo.jar"]
 ```
 
-This files contain the following information:
+These files contain the following information:
 
 - FROM: specifies the Parent Image from which you are building (the base image).
 - ARG: Defines the parameter name and defines its default value.
@@ -662,11 +654,13 @@ This files contain the following information:
 - EXPOSE: tells Docker that a container listens for traffic on the specified port.
 - ENTRYPOINT: used to set executables that will always run when the container is initiated.
 
+<ins>Building a Docker Image
+
 To build an image from our Dockerfile, we have to run ‘docker build' in the command line. 
 
-Ensure Docker is running, you are logged in AND you are in the project directory:
+**Ensure Docker is running, you are logged in AND you are in the project directory**
 
-format: docker build tag <repository-name>:<tag-version> <directory>
+format = docker build tag <repository-name>:<tag-version> directory
 ``` shell
 $> docker build -t message-server:latest .
 ```
@@ -687,7 +681,7 @@ Here it's important to define the port mapping, which maps a port on the host (8
 inside Docker (8888).
 This is the port we defined in the properties of the Spring Boot application.
 
-We can view running containers and all containers by:
+We can view running containers or all containers with:
 ``` shell
 $> docker ps
 $> docker ps -a
@@ -696,7 +690,9 @@ $> docker ps -a
 Now that the Docker image has been created and is running in a container, 
 we can now deploy it on a Kubernetes cluster.
 
-More docker commands available at: [Docker CLI Cheat Sheet (PDF)](docker_cheatsheet.pdf)
+More Docker commands available at: [Docker CLI Cheat Sheet (PDF)](docker_cheatsheet.pdf)
+
+<ins>Layered Jars in Docker
 
 We can reduce the size of a docker image by splitting the application into layers.
 This is done by modifying the Dockerfile to run a command that extracts and copies these application layers.
@@ -721,10 +717,11 @@ ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
 ```
 
 As we have kept the original "Dockerfile" file from previous, instead of overwriting its contents
-we can create an image from a new file "Dockerfile.layered".
+we can create an image from the new file "Dockerfile.layered".
 When building this new image however,
 we must specify the filename in the command line so Docker does not by default automatically search for and build the "Dockerfile" file instead.
 
+To build a docker image from a specified Dockerfile file:
 ``` shell
 docker build -t arsy786/fcms-layered -f Dockerfile.layered .
 ```
@@ -744,7 +741,7 @@ YAML format, and is better suited for managing multiple containers.
 
 Within the docker-compose.yaml file, we must configure all the docker containers for each service, image and db 
 in the Microservice application. For example, Mongo, KeyCloak, Zookeeper & Kafka, KeyCloak & MySQL, Zipkin, 
-Eureka Server, all SB apps need docker-compose configs. 
+Eureka Server, and all SB apps need docker-compose configs. 
 
 We must also configure an application.properties for the Docker environment.
 Similar to a DEV/PROD profile, to enable environment-specific configuration properties we need to add new application.properties files.
@@ -754,9 +751,9 @@ Similar to a DEV/PROD profile, to enable environment-specific configuration prop
 - application-test.properties
 - application-docker.properties
 
-NOTE: Can make use of Spring Cloud Config Server instead of trying to set up lots of properties files for each service.
+NOTE: Can make use of Spring Cloud Config Server instead of trying to set up many properties files for each service.
 
-For an example of two applications running in different Docker containers,
+An example of two applications running in different Docker containers,
 we can combine the configuration for both services in one file called docker-compose.yaml:
 
 ``` yaml
@@ -859,16 +856,17 @@ Jib organizes your application into distinct layers; dependencies, resources, an
 and utilizes Docker image layer caching to keep builds fast by only rebuilding changes.
 Jib's layer organization and small base image keeps overall image size small which improves performance and portability.
 
-Implementation: [Dockerizing Spring Boot Apps using Google Jib (YouTube/JavaTechie)](https://www.youtube.com/watch?v=dKXx4O_GIyo)
-<br>
+<ins>Implementation
 
-NOTE: Configuration for Jib is carried in pom.xml where aside from adding the plugins, you configure the image properties.
-<BR>
-NOTE: You must provide your Docker credentials in settings.xml file in Maven folder.
-<BR>
-NOTE: To use Jib must run the command: mvn compile jib:build 
-<BR>
-NOTE: Posts image to DockerHub automatically.
+- Configuration for Jib is carried in pom.xml where aside from adding the plugins, you configure the image properties.
+- You must provide your Docker credentials in settings.xml file in Maven folder.
+- To use Jib must run the command: mvn compile jib:build 
+- Posts image to DockerHub automatically.
+
+Link to Jib examples: 
+<br>
+[Dockerizing Spring Boot Apps using Google Jib (YouTube/JavaTechie)](https://www.youtube.com/watch?v=dKXx4O_GIyo)
+<br>
 
 ## 2. Managing the Application
 
@@ -901,37 +899,129 @@ The control plane manages the worker nodes and the Pods in the cluster.
 In production environments, the control plane usually runs across multiple computers and 
 a cluster usually runs multiple nodes, providing fault-tolerance and high availability.
 
-
 <ins>What is a Pod?
 
 ![k8s-pod](images/k8s-pod.png)
 
-A Pod is the smallest deployable unit (and not containers).
-Within a pod you will always have one main container, your application.
-You may or may not have init containers (executed before main container).
-You may or may not have some side containers (support main container).
-We can have volumes, this is how containers share data between them.
-So, a Pod is a group of 1 or more containers.
-It represents a running process
-Shares network and Volumes.
-NEVER create PODs on its own, use Controllers instead!
-
+Pods are the smallest, most basic deployable objects in Kubernetes. 
+A Pod represents a single instance of a running process in your cluster. 
+Pods contain one or more containers, such as Docker containers. 
+When a Pod runs multiple containers, the containers are managed as a single entity and share the Pod's resources.
 
 <ins>What is a Volume?
 
+A Volume in Kubernetes represents a directory with data that is accessible across multiple containers in a Pod. 
+The container data in a Pod is deleted or lost when a container crashes or restarts, but when you use a volume, 
+the new container can pick up the data at the state before the container crashes
+
 <ins>What is a Deployment?
 
-<ins>How to Implement Kubernetes!
+Although pods are the basic unit of computation in Kubernetes, they are not typically directly launched on a cluster. 
+Instead, pods are usually managed by one more layer of abstraction: the deployment.
 
-Link to: [Run & Deploy Spring Boot Application in K8s Cluster using yaml configuration (medium/JavaTechie)](https://medium.com/@javatechie/kubernetes-tutorial-run-deploy-spring-boot-application-in-k8s-cluster-using-yaml-configuration-3b079154d232)
+A deployment’s primary purpose is to declare how many replicas of a pod should be running at a time. 
+When a deployment is added to the cluster, it will automatically spin up the requested number of pods, 
+and then monitor them. If a pod dies, the deployment will automatically re-create it.
+
+Deployments can also help to efficiently scale the number of replica pods, enable the rollout of updated code in a controlled manner, or roll back to an earlier deployment version if necessary.
+
+Using a deployment, you don’t have to deal with pods manually. You can just declare the desired state of the system,
+and it will be managed for you automatically.
+
+
+<ins>deployment.yaml
+
+[Run & Deploy Spring Boot Application in K8s Cluster using yaml configuration (medium/JavaTechie)](https://medium.com/@javatechie/kubernetes-tutorial-run-deploy-spring-boot-application-in-k8s-cluster-using-yaml-configuration-3b079154d232)
 <br>
 
 Now that the Docker image is created, we can now deploy it on the Kubernetes cluster.
-Next steps to deploy this springboot-k8s-example docker image in to k8s cluster first we need to create deployment object .
+Next steps to deploy this springboot-k8s-example docker image in to k8s cluster first we need to create deployment 
+object.
 
-We’re going to define both a Deployment and a Service for our application using a config file called spring-k8s-minikube-deployment.yaml:
+The best way to make a deployment in K8s is by preparing a YAML file, this file describes configuration about how the
+application should run in k8s pod. Or in simple terms, with the help of this deployment configuration we are telling 
+k8s to create instances of my spring boot application in k8s cluster.
 
-Now we can deploy it all:
+So let’s define deployment specification. In the root project directory, create a new file named deployment.yaml 
+(Note: you can give any name) and add the code snippet below:
 
-And now, you can recheck the Kubernetes Dashboard to see that your cluster is up and running as expected.
+``` yaml
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: spring-boot-k8s
+spec:
+  selector:
+    matchLabels:
+      app: spring-boot-k8s
+  replicas: 2 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: spring-boot-k8s
+    spec:
+      containers:
+        - name: spring-boot-k8s
+          image: springboot-k8s-example:1.0 
+# Image that will be used to containers in the cluster
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080 
+# The port that the container is running on in the cluster
+```
 
+Now that we have created the Kubernetes deployment file, we can deploy it to the cluster. Execute the command below to deploy the application to the cluster.
+
+``` shell
+kubectl apply -f deployment.yaml
+```
+
+check the deployment status 
+
+``` shell
+kubectl get deployments
+``` 
+
+Next since we mentioned replicas: 2 , kubernetes will create two pods/instance for our application, so first we can get pods information using 
+
+``` shell
+kubectl get pods
+```
+
+We can see here status is running, let’s fetch the logs of running pods
+
+``` shell
+kubectl logs podName
+```
+
+And now, you can check the Kubernetes Dashboard to see that your cluster is up and running as expected.
+``` shell
+minikube dashboard
+```
+
+<ins>service.yaml
+
+In Kubernetes service plays the role of service discovery where it exposes our application outside the Kubernetes cluster as well as it act as Load balancer where it decides which pod should handle the request.
+
+In the root project directory, create a new file named service.yaml (Note : you can give any name) and add the code snippet below.
+
+``` yaml
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: springboot-k8s-svc
+spec:
+  selector:
+    app: spring-boot-k8s
+  ports:
+    - protocol: "TCP"
+      port: 8080 # The port that the service is running on in the cluster
+      targetPort: 8080 # The port exposed by the service
+  type: NodePort # type of the service.
+```
+
+Now that we have created the service file, let’s expose our app to outside k8s cluster using command below
+
+``` shell
+kubectl apply -f service.yaml
+```
