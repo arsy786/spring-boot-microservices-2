@@ -553,7 +553,7 @@ Ensure you are in the project directory for the Packaging and Docker steps, and 
 
 [SpringBoot to Kubernetes in 15 minutes (YouTube/TEKE)](https://www.youtube.com/watch?v=aH1IwAPHe1w)
 <br>
-[Deploy Springboot Microservices to Kubernetes Cluster (YouTube/DailyCodeBuffer)](https://www.youtube.com/watch?v=VAmntTPebKE&t=408s)
+[Deploy SpringBoot Microservices to Kubernetes Cluster (YouTube/DailyCodeBuffer)](https://www.youtube.com/watch?v=VAmntTPebKE&t=408s)
 <br>
 
 ## 1. Packaging / Containerizing the Application
