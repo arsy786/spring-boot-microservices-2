@@ -63,6 +63,10 @@ using Spring Boot, Docker and Kubernetes.
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.1 Kubernetes](#21-kubernetes)
 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.1.1 Deployment](#211-deployment)
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.1.2 Service](#212-service)
+<br>
 
 ## A. Building Microservices
 
@@ -872,6 +876,8 @@ Link to Jib examples:
 
 ## 2.1 Kubernetes
 
+Kubectl Commands: [Kubernetes Cheat Sheet (PDF)](Kubernetes-Cheat-Sheet.pdf)
+<br>
 Installing Kubernetes: [How to Install Kubernetes on Mac (YouTube/ResearchRocks)](https://www.youtube.com/watch?v=gFI8PI-gMqQ)
 <br>
 What is Kubernetes? [Kubernetes in 5 mins (YouTube/VMwareCloudNativeApps)](https://www.youtube.com/watch?v=PH-2FfFD2PU)
@@ -928,8 +934,7 @@ Deployments can also help to efficiently scale the number of replica pods, enabl
 Using a deployment, you don’t have to deal with pods manually. You can just declare the desired state of the system,
 and it will be managed for you automatically.
 
-
-<ins>deployment.yaml
+## 2.1.1 Deployment
 
 [Run & Deploy Spring Boot Application in K8s Cluster using yaml configuration (medium/JavaTechie)](https://medium.com/@javatechie/kubernetes-tutorial-run-deploy-spring-boot-application-in-k8s-cluster-using-yaml-configuration-3b079154d232)
 <br>
@@ -999,11 +1004,11 @@ And now, you can check the Kubernetes Dashboard to see that your cluster is up a
 minikube dashboard
 ```
 
-<ins>service.yaml
+## 2.1.2 Service
 
 In Kubernetes service plays the role of service discovery where it exposes our application outside the Kubernetes cluster as well as it act as Load balancer where it decides which pod should handle the request.
 
-In the root project directory, create a new file named service.yaml (Note : you can give any name) and add the code snippet below.
+In the root project directory, create a new file named service.yaml (Note: you can give any name) and add the code snippet below.
 
 ``` yaml
 apiVersion: v1 # Kubernetes API version
