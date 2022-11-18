@@ -1030,3 +1030,12 @@ Now that we have created the service file, let’s expose our app to outside k8s
 ``` shell
 kubectl apply -f service.yaml
 ```
+
+<ins>Service Types
+
+Kubernetes supports 4 types of service:
+1. NodePort: here we expose our application to the node in which our PODs are running.
+2. ClusterIP: here our application is only accessible in the K8S private network and can’t be accessed from the outside world.
+3. LoadBalancer: the type that’s most used in production because we can have multiple instances running in different nodes inside the K8S cluster. to use this type we should route the traffic from the external IP address to the cluster network in order to deliver packets.
+4. No service type: used to statically expose a service. An example of that would be a database or a third-party service provider.
+
