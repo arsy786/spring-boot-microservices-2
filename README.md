@@ -1,4 +1,10 @@
-# spring-boot-microservices
+# Spring Boot Microservices
+
+> ✅ **Part of the [Spring Boot Roadmap](https://github.com/arsy786/spring-boot-roadmap)** — a curated masterclass covering everything from Java basics to advanced Spring Boot practices and projects.
+
+It is one of several interconnected repositories making up the broader [Spring Boot Roadmap](https://github.com/arsy786/spring-boot-roadmap), which provides a complete learning journey.
+
+---
 
 This project is a guide to learning how to build, deploy and manage Microservices
 using Spring Boot, Docker and Kubernetes.
